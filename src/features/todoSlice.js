@@ -43,6 +43,69 @@ export const fetchTodos = createAsyncThunk(
   }
 );
 
+export const deleteTodo = createAsyncThunk(
+  "todos/deleteTodo",
+  async (id) => {
+    await fetch(
+      `http://localhost:5000/api/v1/users/delete-task/${id}`,
+      {
+        method: "POST",
+        credentials: "include",
+      }
+    );
+
+    return id; 
+  }
+);
+
+export const addTodo = createAsyncThunk(
+  "todos/addTodo",
+  async (text) => {
+    const res = await fetch(
+      "http://localhost:5000/api/v1/users/addtask",
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ text }),
+      }
+    );
+
+    const data = await res.json();
+    return data.data; 
+  }
+);
+
+
+
+// features/todos/todoThunks.js
+export const toggleTask = createAsyncThunk(
+  "todos/toggleTask",
+  async (taskId, { rejectWithValue }) => {
+
+    console.log("THUNK TASK ID:", taskId);
+    try {
+      const res = await fetch(
+        `http://localhost:5000/api/v1/users/change-state/${taskId}`,
+        {
+          method: "POST",
+          credentials: "include",
+        }
+      );
+
+      const data = await res.json();
+      return data.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+
+
+
 
 const todoSlice = createSlice({
   name: "todos",
@@ -60,7 +123,31 @@ const todoSlice = createSlice({
       .addCase(fetchTodos.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
-      });
+      })
+
+      .addCase(addTodo.fulfilled, (state, action) => {
+  state.todos.unshift(action.payload);
+})
+
+.addCase(toggleTask.fulfilled, (state, action) => {
+  const index = state.todos.findIndex(
+    (todo) => todo._id === action.payload._id
+  );
+
+  if (index !== -1) {
+    state.todos[index] = action.payload;
+  }
+})
+
+      .addCase(deleteTodo.fulfilled, (state, action) => {
+  state.todos = state.todos.filter(
+    (todo) => todo._id !== action.payload
+  );
+});
+
+
+
+
   },
 });
 
