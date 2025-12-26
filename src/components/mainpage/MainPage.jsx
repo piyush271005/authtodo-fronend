@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import React from "react";
 import CurrentTodo from "../currentTodo/currentTodo.jsx";
 import { addTodo } from "../../features/todoSlice.js";
@@ -7,6 +7,8 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from "react-redux";
 import Calendar from "../calander/calander.jsx";
 import CompletedTasksCard from "../completedTask/completedtask.jsx";
+import { logoutUser } from "../../features/todoSlice.js";
+import { Navigate } from "react-router-dom";
 
 
 
@@ -18,12 +20,23 @@ export default function MainPage(){
 
   const [text, setText] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
    const handleAdd = () => {
     if (!text.trim()) return;
 
     dispatch(addTodo(text));
     setText("");
+  };
+
+  
+   const handleButtonClick = async () => {
+    try {
+      await dispatch(logoutUser()).unwrap(); // ensures proper error handling
+      navigate("/login");
+    } catch (err) {
+      console.error("Logout failed:", err);
+    }
   };
 
     return (
@@ -36,9 +49,14 @@ export default function MainPage(){
         <h1 className="text-sm text-gray-500 font-medium">Focusly</h1>
         <h2 className="text-3xl font-semibold text-gray-800">My Day</h2>
       </div>
-      <button className="text-gray-400 hover:text-gray-600">
-        ⚙️
+      <div className=" bg-blue-500 rounded-xl  p-1 hover:bg-blue-700">
+      <button 
+      onClick={handleButtonClick}
+      
+      className="text-white ">
+        Logout
       </button>
+      </div>
     </div>
 
     {/* MAIN GRID */}

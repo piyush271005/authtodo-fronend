@@ -1,20 +1,43 @@
 import React, {useState, useEffect} from 'react'
 import { useDispatch } from 'react-redux';
-import { fetchTodos } from '../../features/todoSlice';
+import { fetchTodos } from "../../features/todoSlice.js"
 import { useSelector } from 'react-redux';
-import { deleteTodo } from '../../features/todoSlice';
-import { toggleTask } from '../../features/todoSlice';
+import { deleteTodo } from "../../features/todoSlice.js";
+import { toggleTask } from "../../features/todoSlice.js";
+import { Navigate, useNavigate } from 'react-router-dom';
+import { refreshAccessToken } from '../../features/todoSlice.js';
 
 
   function CurrentTodo() {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   useEffect(() => {
     dispatch(fetchTodos());
+    
   }, []);
 
+  
   const { todos, status, error } = useSelector((state) => state.todos);
-  console.log("TODOS:", todos);
+  console.log(status)
+  console.log(error)
+
+  useEffect(() => {
+  if (status === "failed") {
+
+    dispatch(refreshAccessToken())
+    
+  }
+}, [status, error, navigate]);
+
+useEffect(() => {
+  if (status === "unauthenticated") {
+
+    navigate("/")
+    
+  }
+}, [status, error, navigate]);
+  
 
 
  /* const todos = [{

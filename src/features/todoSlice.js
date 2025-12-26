@@ -20,7 +20,7 @@ It’s the default, neutral state of your Redux slice.*/
 export const fetchTodos = createAsyncThunk(
   "todos/fetchTodos",
   async (_, { rejectWithValue }) => {
-    try {
+    
       const res = await fetch(
         "http://localhost:5000/api/v1/users/get-current-tasks",
         {
@@ -29,17 +29,18 @@ export const fetchTodos = createAsyncThunk(
         }
       );
 
+      console.log(res)
+
       if (!res.ok) {
         const errorData = await res.json();
-        return rejectWithValue(errorData.message || "Failed to fetch tasks");
+        return rejectWithValue(errorData.status || "Failed to fetch tasks");
       }
 
       const data = await res.json();
+      
       return data.tasks;
 
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
+    
   }
 );
 
@@ -103,6 +104,60 @@ export const toggleTask = createAsyncThunk(
   }
 );
 
+export const logoutUser = createAsyncThunk(
+  "auth/logoutUser",
+  async (_, { rejectWithValue }) => {
+    try {
+      await fetch("http://localhost:5000/api/v1/users/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+      return true;
+    } catch (error) {
+      return rejectWithValue("Logout failed");
+    }
+  }
+);
+
+
+
+export const refreshAccessToken = createAsyncThunk(
+  "auth/refreshAccessToken",
+  async (_, { rejectWithValue }) => {
+    try {
+      const res = await fetch(
+        "http://localhost:5000/api/v1/users/refresh-token",
+        {
+          method: "POST",
+          credentials: "include",
+        }
+      );
+
+      
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+
+        
+      console.log(data)
+
+        return rejectWithValue({
+          status: res.status,
+          message: data.message || "Unable to refresh access token",
+        });
+      }
+
+      // backend sets new accessToken cookie
+      return true; // success signal
+    } catch (error) {
+      return rejectWithValue({
+        status: 0,
+        message: "Network error while refreshing token",
+      });
+    }
+  }
+);
+
 
 
 
@@ -122,7 +177,7 @@ const todoSlice = createSlice({
       })
       .addCase(fetchTodos.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.error.message;
+        state.error = action.payload;
       })
 
       .addCase(addTodo.fulfilled, (state, action) => {
@@ -143,7 +198,22 @@ const todoSlice = createSlice({
   state.todos = state.todos.filter(
     (todo) => todo._id !== action.payload
   );
-});
+})
+
+ .addCase(logoutUser.fulfilled, (state) => {
+        state.todos = [];
+        
+        state.status = "idle";
+      })
+
+       .addCase(refreshAccessToken.fulfilled, (state) => {
+        state.status = "authenticated";
+      })
+      .addCase(refreshAccessToken.rejected, (state, action) => {
+        state.status = "unauthenticated";
+        state.error = action.payload;
+      });
+     
 
 
 

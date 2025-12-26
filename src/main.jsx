@@ -11,6 +11,7 @@ import Login from './components/Login/Login.jsx'
 import MainPage from './components/mainpage/MainPage.jsx'
 import { Provider } from "react-redux";
 import { store } from "./app/store";
+import { Protected } from './components/protected/protected.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
