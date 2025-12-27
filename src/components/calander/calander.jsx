@@ -24,59 +24,80 @@ function Calendar() {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow p-5">
-      {/* HEADER */}
-      <div className="flex justify-between items-center mb-4">
-        <p className="font-medium">
-          {currentDate.toLocaleString("default", {
-            month: "long",
-            year: "numeric",
-          })}
-        </p>
+    <div className="bg-white/90 backdrop-blur-xl rounded-xl shadow-lg p-5
+                transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
 
-        <div className="space-x-3 text-gray-400 cursor-pointer">
-          <span onClick={prevMonth}>◀</span>
-          <span onClick={nextMonth}>▶</span>
-        </div>
-      </div>
+  {/* HEADER */}
+  <div className="flex justify-between items-center mb-4">
+    <p className="font-semibold text-gray-800 tracking-wide">
+      {currentDate.toLocaleString("default", {
+        month: "long",
+        year: "numeric",
+      })}
+    </p>
 
-      {/* DAYS */}
-      <div className="grid grid-cols-7 gap-2 text-center text-sm">
-        {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((day) => (
-          <span key={day} className="text-gray-400">
-            {day}
-          </span>
-        ))}
-
-        {/* EMPTY SPACES */}
-        {Array.from({ length: firstDay }).map((_, i) => (
-          <span key={`empty-${i}`} />
-        ))}
-
-        {/* DATES */}
-        {Array.from({ length: daysInMonth }).map((_, i) => {
-          const date = i + 1;
-          const isToday =
-            date === today.getDate() &&
-            month === today.getMonth() &&
-            year === today.getFullYear();
-
-          return (
-            <span
-              key={date}
-              className={`py-1 rounded-full cursor-pointer
-                ${
-                  isToday
-                    ? "bg-blue-500 text-white"
-                    : "text-gray-700 hover:bg-gray-100"
-                }`}
-            >
-              {date}
-            </span>
-          );
-        })}
-      </div>
+    <div className="flex items-center gap-3 text-indigo-500 font-semibold">
+      <span
+        onClick={prevMonth}
+        className="cursor-pointer transition-transform duration-200
+                   hover:scale-110 hover:text-indigo-700"
+      >
+        ◀
+      </span>
+      <span
+        onClick={nextMonth}
+        className="cursor-pointer transition-transform duration-200
+                   hover:scale-110 hover:text-indigo-700"
+      >
+        ▶
+      </span>
     </div>
+  </div>
+
+  {/* DAYS */}
+  <div className="grid grid-cols-7 gap-2 text-center text-xs font-medium text-gray-400 mb-1">
+    {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((day) => (
+      <span key={day}>{day}</span>
+    ))}
+  </div>
+
+  {/* DATES */}
+  <div className="grid grid-cols-7 gap-2 text-center text-sm">
+    {/* EMPTY SPACES */}
+    {Array.from({ length: firstDay }).map((_, i) => (
+      <span key={`empty-${i}`} />
+    ))}
+
+    {Array.from({ length: daysInMonth }).map((_, i) => {
+      const date = i + 1;
+      const isToday =
+        date === today.getDate() &&
+        month === today.getMonth() &&
+        year === today.getFullYear();
+
+      return (
+        <span
+          key={date}
+          className={`w-8 h-8 flex items-center justify-center rounded-full
+                      cursor-pointer transition-all duration-200
+            ${
+              isToday
+                ? "bg-gradient-to-r from-indigo-500 to-violet-500 text-white shadow-md scale-105"
+                : "text-gray-700 hover:bg-indigo-100 hover:text-indigo-700"
+            }`}
+        >
+          {date}
+        </span>
+      );
+    })}
+  </div>
+
+  {/* MICRO COPY */}
+  <p className="mt-3 text-xs text-gray-500 text-center">
+    Today highlighted for quick reference
+  </p>
+</div>
+
   );
 }
 

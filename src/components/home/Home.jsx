@@ -1,57 +1,146 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import register from '../Register/Register';
+import { Navigate } from 'react-router-dom';
 
 export default function Home() {
+
+ const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/register");
+  };
     return (
-       <div class="min-h-screen bg-white relative overflow-hidden flex items-center justify-center">
-  
- 
-  <img
-    src="https://i.ibb.co/7dXYvWmx/man-walking-using-laptop.png"
-    class=" lg:block absolute left-40 bottom-40 w-150"
-  />
+    <div className="min-h-screen relative overflow-hidden
+                bg-gradient-to-br from-indigo-100 via-violet-100 to-slate-100">
 
-  <img
-    src="https://i.ibb.co/Kj86y1rd/136881254-39eb0bae-46c4-44c7-bff3-0c3311dc0bbd.png"
-    class=" lg:block absolute right-40 bottom-40 w-150"
-  />
+  {/* ================= MOBILE VIEW ================= */}
+  {/* Default (mobile-first) */}
+  <div className="flex block min-[1346px]:hidden min-h-screen items-center justify-center px-4">
+    <div className="w-full max-w-md text-center space-y-6 animate-fadeInUp">
 
-  
- 
+      {/* LOGO */}
+      <div className="flex justify-center">
+        <img
+          src="https://i.ibb.co/d0vCz6vQ/373758985-75b7f71e-39f0-43bc-9e67-5407c8b43768.png"
+          alt="Focusly Logo"
+          className="h-20"
+        />
+      </div>
 
- 
-  <div class="text-center flex flex-col items-center space-y-6 max-w-md px-6">
-    
+      {/* TITLE */}
+      <h1 className="text-3xl font-bold text-gray-900">
+        Focusly
+      </h1>
+
+      {/* ILLUSTRATION */}
+      <div className="flex justify-center">
+        <img
+          src="https://i.ibb.co/7N23KW7R/image-removebg-preview-2.png"
+          alt="Illustration"
+          className="w-64 opacity-95"
+        />
+      </div>
+
+      {/* CTA */}
+      <button
+        onClick={handleClick}
+        className="w-full py-3 rounded-lg font-semibold text-white
+                   bg-gradient-to-r from-indigo-500 to-violet-500
+                   transition-all duration-300
+                   hover:scale-[1.02] hover:shadow-xl
+                   active:scale-95"
+      >
+        Get started
+      </button>
+
+      {/* SECONDARY */}
+      <a
+        href="#"
+        className="block text-indigo-600 text-sm hover:text-indigo-800 hover:underline"
+      >
+        Learn more
+      </a>
+
+      {/* FOOTER */}
+      <p className="text-xs text-gray-400 pt-4">
+        Terms of use
+      </p>
+    </div>
+  </div>
+
+  {/* ================= DESKTOP / LAPTOP VIEW ================= */}
+  {/* Visible from lg and above */}
+  <div className="hidden lg:flex min-h-screen items-center justify-center">
+
+    {/* LEFT ILLUSTRATION */}
     <img
-      src="https://i.ibb.co/NcjCtDW/373758985-75b7f71e-39f0-43bc-9e67-5407c8b43768.jpg" alt="373758985-75b7f71e-39f0-43bc-9e67-5407c8b43768"
-      class="h-50"
+      src="https://i.ibb.co/p719vDL/image-removebg-preview.png"
+      alt="Left Illustration"
+      className="absolute left-50 bottom-40 w-96
+                 animate-floatSlow opacity-90"
     />
 
-    <h1 class="text-5xl font-semibold text-gray-900">
-      Foucasly
-    </h1>
+    {/* RIGHT ILLUSTRATION */}
+    <img
+      src="https://i.ibb.co/MD47Tg5N/image-removebg-preview-1.png"
+      alt="Right Illustration"
+      className="absolute right-50 bottom-20 w-96 scale-75
+                 animate-floatSlow opacity-90 delay-200"
+    />
 
-    <p class="text-gray-600">
-      Stay focused, organized, and in control — from work to play.
-    </p>
+    {/* CENTER CONTENT */}
+    <div className="text-center flex flex-col items-center space-y-4
 
-    <Link to="Register" className="text-white bg-orange-700 hover:bg-orange-800 focus:ring-4 focus:ring-orange-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none" >
-     Get started
-     
-      </Link>
+                    max-w-md px-6 z-10 animate-fadeInUp">
 
-    <a href="#" class="text-blue-600 text-sm hover:underline">
-      Learn more
-    </a>
+      {/* LOGO */}
+      <img
+        src="https://i.ibb.co/d0vCz6vQ/373758985-75b7f71e-39f0-43bc-9e67-5407c8b43768.png"
+        alt="Focusly Logo"
+        className="h-30 transition-transform duration-300 hover:scale-105"
+      />
 
-   
+      {/* TITLE */}
+      <h1 className="text-5xl font-extrabold text-gray-900 tracking-tight">
+        Focusly
+      </h1>
 
-    <p class="text-xs text-gray-400">
-      Terms of use
-    </p>
+      {/* TAGLINE */}
+      <p className="text-gray-600 text-lg">
+        Stay focused, organized, and in control — from work to play.
+      </p>
 
+      {/* CTA */}
+      <button
+        onClick={handleClick}
+        className="mt-2 px-6 py-3 rounded-xl font-semibold text-white
+                   bg-gradient-to-r from-indigo-500 to-violet-500
+                   transition-all duration-300
+                   hover:scale-105 hover:shadow-2xl
+                   active:scale-95"
+      >
+        Get started
+      </button>
+
+      {/* SECONDARY */}
+      <a
+        href="#"
+        className="text-indigo-600 text-sm hover:text-indigo-800 hover:underline"
+      >
+        Learn more
+      </a>
+
+      {/* FOOTER */}
+      <p className="text-xs text-gray-400">
+        Terms of use
+      </p>
+    </div>
   </div>
 </div>
+
+
+
 
     );
 }

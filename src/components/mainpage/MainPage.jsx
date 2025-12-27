@@ -40,73 +40,66 @@ export default function MainPage(){
   };
 
     return (
-        <div className="fullscreen bg-gradient-to-br from-blue-100 to-white p-10">
-  <div className="max-w-6xl mx-auto bg-white rounded-2xl shadow-xl p-8">
+        <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-violet-100 to-slate-100 p-10 transition-colors duration-700">
+  <div className="max-w-6xl mx-auto bg-white/90 backdrop-blur-xl rounded-2xl shadow-2xl p-8
+                  animate-fadeIn">
 
     {/* HEADER */}
     <div className="flex justify-between items-center mb-8">
-      <div>
-        <h1 className="text-sm text-gray-500 font-medium">Focusly</h1>
-        <h2 className="text-3xl font-semibold text-gray-800">My Day</h2>
+      <div className="space-y-1">
+        <h1 className="text-sm text-indigo-500 font-semibold tracking-wide uppercase">
+          Focusly
+        </h1>
+        <h2 className="text-3xl font-bold text-gray-800">
+          My Day
+        </h2>
       </div>
-      <div className=" bg-blue-500 rounded-xl  p-1 hover:bg-blue-700">
-      <button 
-      onClick={handleButtonClick}
-      
-      className="text-white ">
+
+      <button
+        onClick={handleButtonClick}
+        className="px-4 py-2 rounded-xl bg-gradient-to-r from-indigo-500 to-violet-500
+                   text-white font-medium shadow-md
+                   transition-all duration-300
+                   hover:scale-105 hover:shadow-xl active:scale-95">
         Logout
       </button>
-      </div>
     </div>
 
     {/* MAIN GRID */}
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
 
       {/* LEFT COLUMN */}
-      <div className="lg:col-span-2 space-y-6">
+      <div className="lg:col-span-2 space-y-6 animate-slideUp">
 
-        <CurrentTodo/>
-    
+        <CurrentTodo />
 
-        {/* COMPLETED TASKS */}
-       
-        
-        <div className="bg-white rounded-xl shadow p-5 flex items-center justify-between">
+        {/* ADD TASK */}
+        <div className="bg-white rounded-xl shadow-md p-5 flex items-center justify-between
+                        transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
           <input
             type="text"
-            
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        placeholder="Add a task..."
-            className="w-full outline-none text-gray-700"
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            placeholder="Add a task..."
+            className="w-full outline-none text-gray-700 placeholder-gray-400"
           />
+
           <button
-
-          onClick={handleAdd}
-
-
-          
-          
-          className="ml-4 w-10 h-10 rounded-full bg-blue-500 text-white text-xl  hover:bg-blue-800 ">
+            onClick={handleAdd}
+            className="ml-4 w-10 h-10 rounded-full
+                       bg-gradient-to-r from-indigo-500 to-violet-500
+                       text-white text-xl font-semibold
+                       transition-all duration-300
+                       hover:scale-110 hover:shadow-lg active:scale-95">
             +
           </button>
         </div>
       </div>
 
-      
-      <div className="space-y-6">
-
-
-        <Calendar/>
-        <CompletedTasksCard/>
-
-       
-
-      
-
-        
-        
-
+      {/* RIGHT COLUMN */}
+      <div className="space-y-6 animate-slideUp delay-150">
+        <Calendar />
+        <CompletedTasksCard />
       </div>
     </div>
   </div>

@@ -11,21 +11,37 @@ function CompletedTasksCard() {
     totalTasks === 0 ? 0 : Math.round((completedTasks / totalTasks) * 100);
 
   return (
-    <div className="bg-white rounded-xl shadow p-5">
-      <div className="flex justify-between mb-2">
-        <p className="font-medium">Completed Tasks</p>
-        <p className="text-sm text-gray-500">
-          {completedTasks}/{totalTasks}
-        </p>
-      </div>
+    <div className="bg-white/90 backdrop-blur-xl rounded-xl shadow-lg p-5
+                transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
 
-      <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
-        <div
-          className="bg-blue-500 h-2 rounded-full transition-all duration-300"
-          style={{ width: `${progress}%` }}
-        />
-      </div>
-    </div>
+  {/* HEADER */}
+  <div className="flex justify-between items-center mb-3">
+    <p className="font-semibold text-gray-800 tracking-wide">
+      Completed Tasks
+    </p>
+
+    <span className="text-sm font-medium text-indigo-600">
+      {completedTasks}
+      <span className="text-gray-400"> / {totalTasks}</span>
+    </span>
+  </div>
+
+  {/* PROGRESS BAR */}
+  <div className="w-full bg-gray-200/70 rounded-full h-2.5 overflow-hidden">
+    <div
+      className="h-2.5 rounded-full
+                 bg-gradient-to-r from-indigo-500 to-violet-500
+                 transition-all duration-500 ease-out"
+      style={{ width: `${progress}%` }}
+    />
+  </div>
+
+  {/* OPTIONAL MICRO COPY */}
+  <p className="mt-2 text-xs text-gray-500">
+    Productivity momentum
+  </p>
+</div>
+
   );
 }
 
