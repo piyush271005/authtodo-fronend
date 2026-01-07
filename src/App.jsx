@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import './App.css'
-import Home from './components/home/home'
+import Home from './components/home/Home.jsx'
 function App() {
   const [count, setCount] = useState(0)
 
