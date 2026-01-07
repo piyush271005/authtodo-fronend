@@ -1,32 +1,47 @@
-import { Link } from "react-router-dom";
-import React, { useEffect } from "react";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { checkAuth } from "../checkauth/checkauth.js";
 
-export function Protected(props) {
+export const ProtectedRoute = ({ children }) => {
+  const [loading, setLoading] = useState(true);
+  const [isAuth, setIsAuth] = useState(false);
 
-  const navigate = useNavigate();
-  const{component}= props;
+  useEffect(() => {
+    const verify = async () => {
+      const result = await checkAuth();
+      setIsAuth(result);
+      setLoading(false);
+    };
+    verify();
+  }, []);
 
-  const check = async(req,res)=>{
-    const token = req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ", "")
-    if(!token){
-        navigate('Login')
-    }
+  if (loading) return null;
+
+  if (!isAuth) {
+    return <Navigate to="/Home" replace />;
   }
-  useEffect(()=>{
-    check()
 
-  })
+  return children;
+};
 
-  
-  
-     
+export const PublicRoute = ({ children }) => {
+  const [loading, setLoading] = useState(true);
+  const [isAuth, setIsAuth] = useState(false);
 
+  useEffect(() => {
+    const verify = async () => {
+      const result = await checkAuth();
+      setIsAuth(result);
+      setLoading(false);
+    };
+    verify();
+  }, []);
 
-  return (
-    <div>
-        <component/>
-    </div>
-  );
-}
+  if (loading) return null;
+
+  if (isAuth) {
+    return <Navigate to="/" replace />;
+  }
+
+  return children;
+};

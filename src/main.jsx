@@ -11,17 +11,20 @@ import Login from './components/Login/Login.jsx'
 import MainPage from './components/mainpage/MainPage.jsx'
 import { Provider } from "react-redux";
 import { store } from "./app/store";
-import { Protected } from './components/protected/protected.jsx'
-
+import { PublicRoute ,ProtectedRoute } from './components/protected/protected.jsx'
 const router = createBrowserRouter(
   createRoutesFromElements(
     
       <Route path='/' element={<Layout />}>
 
-        <Route path='home' element ={<Home />}/>
+        <Route path='Home' element ={ <PublicRoute>
+              <Home />
+            </PublicRoute>}/>
         <Route path='Register' element ={<Register />}/>
         <Route path='Login' element ={<Login />}/>
-        <Route path='' element ={<MainPage />}/>
+        <Route path='' element ={<ProtectedRoute>
+              <MainPage />
+            </ProtectedRoute>}/>
 
         
     
