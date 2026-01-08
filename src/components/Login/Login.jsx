@@ -26,7 +26,7 @@ export default function Login() {
     e.preventDefault();
 
     try {
-      const res = await fetch("http://localhost:5000/api/v1/users/login", {
+      const res = await fetch("https://authtodo-2.onrender.com/api/v1/users/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

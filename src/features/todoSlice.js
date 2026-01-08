@@ -22,7 +22,7 @@ export const fetchTodos = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     
       const res = await fetch(
-        "http://localhost:5000/api/v1/users/get-current-tasks",
+        "https://authtodo-2.onrender.com/api/v1/users/get-current-tasks",
         {
           method: "GET",
           credentials: "include",
@@ -48,7 +48,7 @@ export const deleteTodo = createAsyncThunk(
   "todos/deleteTodo",
   async (id) => {
     await fetch(
-      `http://localhost:5000/api/v1/users/delete-task/${id}`,
+      `https://authtodo-2.onrender.com/api/v1/users/delete-task/${id}`,
       {
         method: "POST",
         credentials: "include",
@@ -63,7 +63,7 @@ export const addTodo = createAsyncThunk(
   "todos/addTodo",
   async (text) => {
     const res = await fetch(
-      "http://localhost:5000/api/v1/users/addtask",
+      "https://authtodo-2.onrender.com/api/v1/users/addtask",
       {
         method: "POST",
         credentials: "include",
@@ -89,7 +89,7 @@ export const toggleTask = createAsyncThunk(
     console.log("THUNK TASK ID:", taskId);
     try {
       const res = await fetch(
-        `http://localhost:5000/api/v1/users/change-state/${taskId}`,
+        `https://authtodo-2.onrender.com/api/v1/users/change-state/${taskId}`,
         {
           method: "POST",
           credentials: "include",
@@ -108,7 +108,7 @@ export const logoutUser = createAsyncThunk(
   "auth/logoutUser",
   async (_, { rejectWithValue }) => {
     try {
-      await fetch("http://localhost:5000/api/v1/users/logout", {
+      await fetch("https://authtodo-2.onrender.com/api/v1/users/logout", {
         method: "POST",
         credentials: "include",
       });
@@ -126,7 +126,7 @@ export const refreshAccessToken = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const res = await fetch(
-        "http://localhost:5000/api/v1/users/refresh-token",
+        "https://authtodo-2.onrender.com/api/v1/users/refresh-token",
         {
           method: "POST",
           credentials: "include",
