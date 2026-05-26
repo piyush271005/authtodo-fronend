@@ -46,7 +46,7 @@ export default function register(){
       }
 
       alert("Registration successful!");
-      navigate("/Login");
+      navigate("/login");
     } catch (error) {
       alert("Something went wrong");
     }
@@ -69,7 +69,7 @@ export default function register(){
 
           {/* LOGO */}
           <div className="flex justify-center mb-6">
-            <Link to="/Home">
+            <Link to="/home">
               <img
                 src="https://i.ibb.co/d0vCz6vQ/373758985-75b7f71e-39f0-43bc-9e67-5407c8b43768.png"
                 alt="App Logo"
@@ -182,7 +182,7 @@ export default function register(){
           <p className="text-center text-sm text-slate-400 mt-6">
             Already have an account?
             <Link
-              to="/Login"
+              to="/login"
               className="text-violet-400 hover:text-violet-300 font-semibold ml-1 transition-colors underline"
             >
               Log in

@@ -45,7 +45,7 @@ export const ProtectedRoute = ({ children }) => {
   if (loading) return <LoadingScreen />;
 
   if (!isAuth) {
-    return <Navigate to="/Home" replace />;
+    return <Navigate to="/home" replace />;
   }
 
   return children;

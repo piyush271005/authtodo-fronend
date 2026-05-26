@@ -33,7 +33,7 @@ import { refreshAccessToken } from '../../features/todoSlice.js';
 useEffect(() => {
   if (status === "unauthenticated") {
 
-    navigate("home")
+    navigate("/home")
     
   }
 }, [status, error, navigate]);
